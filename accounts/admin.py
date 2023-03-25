@@ -18,4 +18,4 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 
-admin.site.register(Account)
+admin.site.register(Account,AccountAdmin)

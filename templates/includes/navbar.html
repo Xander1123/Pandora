@@ -28,7 +28,7 @@
     <div class="row align-items-center">
         <div class="col-lg-2 col-md-3 col-6">
             <a href="{%url 'home'%}" class="brand-wrap">
-                <img class="logo" src="{% static './images/logo.png' %}">
+                <img class="logo" src="{% static './images/logo2.png' %}">
             </a> <!-- brand-wrap.// -->
         </div>
         <div class="col-lg col-sm col-md col-6 flex-grow-0">
@@ -46,12 +46,12 @@
         </div> <!-- col.// -->
         <a href="{%url 'store'%}" class="btn btn-outline-primary">Store</a>
         <div class="col-lg  col-md-6 col-sm-12 col">
-            <form action="#" class="search">
+            <form action="{%url 'search' %}" class="search" method='GET'>
                 <div class="input-group w-100">
-                    <input type="text" class="form-control" style="width:60%;" placeholder="Search">
+                    <input type="text" class="form-control" style="width:60%;" placeholder="Search"name="keyword">
                     
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit">
+                      <button class="btn btn-primary" type="submitz">
                         <i class="fa fa-search"></i>
                       </button>
                     </div>
@@ -60,16 +60,27 @@
         </div> <!-- col.// -->
         <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end mb-3 mb-lg-0">
+                        {% if request.user.is_authenticated %}
+                        <div class="widget-header">
+                            <small class="title text-muted">Welcome {{request.user.first_name}}!</small>
+                            <div> 
+                                <a href="">Dashboard</a> <span class="dark-transp"> | </span>
+                                <a href="{%url 'logout'%}"> Logout</a>
+                            </div>
+                        </div>
+                     {% else %}
                         <div class="widget-header">
                             <small class="title text-muted">Welcome guest!</small>
                             <div> 
-                                <a href="./signin.html">Sign in</a> <span class="dark-transp"> | </span>
-                                <a href="./register.html"> Register</a>
+                                <a href="{%url 'login'%}">Login</a> <span class="dark-transp"> | </span>
+                                <a href="{%url 'register'%}"> Register</a>
                             </div>
                         </div>
-                        <a href="./cart.html" class="widget-header pl-3 ml-3">
+                     {% endif %}
+                        
+                        <a href="{%url 'cart'%}" class="widget-header pl-3 ml-3">
                             <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">0</span>
+                            <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
                         </a>
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
